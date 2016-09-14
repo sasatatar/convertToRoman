@@ -1,15 +1,7 @@
 function convertToRoman(num) {
-  // function supports numbers up to 39999
-  // Usage
-  // console.log(convertToRoman(39));
-  if (num > 39999) {
-    return undefined;
-  }
   // define roman symbols
-  // first row contains ones, second tens, third hunderts, fourth thousands...
-  // The symbols for 5000 and 10000 are not pure alphabetic characters, so I used lower case v and x
-  // The function can be easily extended by adding new symbols to the romans array, based on the defined pattern.
-  var romans = [/*empty placeholder for 1 based indexing,,, */'', 'IVX', 'XLC', 'CDM', 'Mvx', 'x'];
+  // first element contains ones, second tens, third hunderts
+  var romans = ['', 'IVX', 'XLC', 'CDM', 'Mvx'];
   // default case:
   // one digit, no remains
   var digits = 1;
@@ -33,38 +25,32 @@ function convertToRoman(num) {
   var arabic = [1, 5, 10];
   //calculate the difference between n and base numbers (1,5,10)
   var delta = arabic.map(function( input){ return n-input; });
-  // find indices where difference is not smaller than -1 and not greater than 3
+  // find the index of the smallest difference in the range between -1 and 3 inclusive
   // which corresponds to roman numeration system
-  var indices = delta.reduce(function(indices, currentValue, currentIndex, array){
+  var index = delta.reduce(function(index, currentValue, currentIndex, array){
     if (currentValue >= -1 && currentValue <= 3){
-      indices.push(currentIndex);
+      if (currentValue < array[index]) {
+        index = currentIndex;
+      }
     }
-    return indices;
-  }, []);
-  // now, the roman number will be formed from the base symbol with the smallest differenc from n, so we
-  // determine the least difference but between -1 and 3, all other values are ignored
-  var minDiff = indices.reduce(function(minDiff, currentValue, currentIndex, array){
-    if (minDiff>delta[currentValue]){
-      minDiff = delta[currentValue];
-    }
-    return minDiff;
-  }, delta[indices[0]]);
-  // determine the index of the minDiff which will correspond to the index of
-  // the appropriate symbol inside the romans array
-  var index = delta.indexOf(minDiff);
+    return index;
+  }, 0);
+
+  // set the least difference minDiff
+  var minDiff = delta[index];
 
   // for starters, set romanOutput equal to the corresponding base symbol
-  var romanOutput = romans[row][index].toString();
+  var romanOutput = romans[row][index];
 
   // append the smallest base symbol to the base abs(minDiff) times
   for (var i = 1; i <= Math.abs(minDiff); i++){
     // if minDiff < 0, append at the beginning (case: n=4, minDiff = 4-5; => romanOutput=I+V)
     if (minDiff<0){
-      romanOutput = romans[row][0].toString() + romanOutput;
+      romanOutput = romans[row][0] + romanOutput;
     } else {
       // else append at the end of the base
       // (case: n=6, minDiff = 6-5 = 1; => romanOutput=V+I)
-      romanOutput = romanOutput + romans[row][0].toString();
+      romanOutput = romanOutput + romans[row][0];
     }
   }
   // if remains is greater than 0, call the function recursevly for the
