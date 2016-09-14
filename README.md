@@ -1,7 +1,7 @@
 # convertToRoman
 Simple JavaScript function that converts Arabic to Roman numbers
 
-Function supports numbers up to 39999.</br>
+Function supports numbers up to 39999. The function can be easily extended to support even bigger numbers.</br>
 The symbols for 5000 and 10000 are not pure alphabetic characters, so I used lower case v and x.
 
 Roman numerals: </br>
