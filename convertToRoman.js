@@ -1,13 +1,14 @@
 function convertToRoman(num) {
-	// function supports numbers up to 39999
-	// Usage
-	// console.log(convertToRoman(39));
-	if (num > 39999) {
-		return undefined;
-	}
+  // function supports numbers up to 39999
+  // Usage
+  // console.log(convertToRoman(39));
+  if (num > 39999) {
+    return undefined;
+  }
   // define roman symbols
   // first row contains ones, second tens, third hunderts, fourth thousands...
-	// The symbols for 5000 and 10000 are not pure alphabetic characters, so I used lower case v and x
+  // The symbols for 5000 and 10000 are not pure alphabetic characters, so I used lower case v and x
+  // The function can be easily extended by adding new symbols to the romans array, based on the defined pattern.
   var romans = [/*empty placeholder for 1 based indexing,,, */'', 'IVX', 'XLC', 'CDM', 'Mvx', 'x'];
   // default case:
   // one digit, no remains
